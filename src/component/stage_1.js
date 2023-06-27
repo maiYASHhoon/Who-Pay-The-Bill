@@ -14,7 +14,7 @@ const Stage1 = () => {
 
         if (validate) {
             setError([false, ""]);
-            context.addPlayer(value)
+            context.addPlayer(value);
             textInput.current.value = "";
         }
     };
@@ -40,33 +40,36 @@ const Stage1 = () => {
                     <Form.Control type="text" placeholder="Add Player Name" name="player" ref={textInput} />
                 </Form.Group>
                 {error[0] ? <Alert>{error[1]}</Alert> : null}
-                <button className="miami" variant="primary" type="submit">
-                    Add Player
-                </button>
+                <div className="text-center">
+                    <button className="miami" variant="primary" type="submit">
+                        Add Player
+                    </button>
+                </div>
             </Form>
-            {context.state.players && context.state.players.length > 0 ? 
-                    <>
-                        <hr />
-                        <div>
-                            <ul className="list-group">
-                                {context.state.players.map((player, idx) => (
-                                    <li key={idx} className="list-group-item d-flex justify-content-between align-items-center list-group-item-action">{player}
+            {context.state.players && context.state.players.length > 0 ? (
+                <>
+                    <hr />
+                    <div>
+                        <ul className="list-group">
+                            {context.state.players.map((player, idx) => (
+                                <li
+                                    key={idx}
+                                    className="list-group-item d-flex justify-content-between align-items-center list-group-item-action"
+                                >
                                     {player}
-                                    <span
-                                        className='badge badge-danger'
-                                        onClick={()=> context.removePlayer(idx)}
-                                    >
+                                    {player}
+                                    <span className="badge badge-danger" onClick={() => context.removePlayer(idx)}>
                                         X
                                     </span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className="action_button" onClick={() => alert('Stage 2')}>
-                                    NEXT
-                            </div>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="action_button" onClick={() => context.next()}>
+                            NEXT
                         </div>
-                    </>
-                 : null}
+                    </div>
+                </>
+            ) : null}
         </>
     );
 };
